@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>بوكيه ميسا الملكي 3D 🌹</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        :root {
+            --gold-light: #fff3b0;
+            --gold: #e6b85c;
+            --gold-dark: #a8761c;
+            --crimson-bright: #ff2a55;
+            --crimson-mid: #b8062c;
+            --crimson-dark: #4f0112;
+            --pink-bright: #ff8fa3;
+            --pink-mid: #e0315a;
+            --pink-dark: #6b0520;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 30%, #3d091f 0%, #1c030e 58%, #090105 100%);
+            font-family: 'Cairo', sans-serif;
+            color: #fff;
+            touch-action: none;
+        }
+
+        .bokeh-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background-image:
+                radial-gradient(2px 2px at 18% 22%, rgba(255, 243, 176, 0.7), transparent),
+                radial-gradient(2.5px 2.5px at 82% 18%, rgba(255, 143, 163, 0.6), transparent),
+                radial-gradient(2px 2px at 32% 78%, rgba(230, 184, 92, 0.55), transparent),
+                radial-gradient(3px 3px at 74% 72%, rgba(255, 42, 85, 0.45), transparent);
+        }
+
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at 50% 35%, #34081b 0%, #0d0207 100%);
+            transition: opacity 0.45s ease, visibility 0.45s ease;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: linear-gradient(155deg, #2d0919 0%, #14030b 100%);
+            border: 1.5px solid rgba(230, 184, 92, 0.42);
+            border-radius: 30px;
+            padding: 36px 26px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .login-icon-ring {
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #ff4d6d, #6e041d);
+            border: 2.5px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(217, 4, 41, 0.5);
+        }
+
+        .login-title {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 2.35rem;
+            background: linear-gradient(to bottom, #fff3b0, #e6b85c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .login-desc {
+            font-size: 0.94rem;
+            color: #ffdce6;
+            line-height: 1.65;
+            margin-bottom: 26px;
+            opacity: 0.9;
+        }
+
+        .google-login-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #fff;
+            color: #1f1f1f;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 22px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        #google-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 120;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .google-box {
+            width: 100%;
+            max-width: 350px;
+            background: #fff;
+            color: #202124;
+            border-radius: 22px;
+            padding: 24px 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            text-align: right;
+        }
+
+        .google-box-head {
+            text-align: center;
+            border-bottom: 1px solid #ececec;
+            padding-bottom: 14px;
+            margin-bottom: 14px;
+        }
+
+        .google-account-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            background: #fff0f4;
+            border: 1.5px solid #f8bbd0;
+            cursor: pointer;
+        }
+
+        .google-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d90429, #ff758f);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        #main-scene {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 10px 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.45s ease;
+        }
+
+        #main-scene.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hud-header {
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: #230613;
+            border: 1px solid rgba(230, 184, 92, 0.35);
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            z-index: 30;
+        }
+
+        .hud-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            color: var(--gold-light);
+        }
+
+        .hud-user-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff4d6d, #800f2f);
+            border: 1px solid var(--gold);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.8rem;
+        }
+
+        .hud-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hud-counter {
+            font-size: 0.8rem;
+            background: rgba(217, 4, 41, 0.28);
+            border: 1px solid rgba(255, 143, 163, 0.4);
+            padding: 4px 11px;
+            border-radius: 30px;
+            color: #ffe3ea;
+        }
+
+        .hud-btn {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #2b0510;
+            border: none;
+            border-radius: 30px;
+            padding: 5px 13px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        #status-banner {
+            margin-top: 4px;
+            padding: 6px 16px;
+            background: #1c040e;
+            border: 1px solid rgba(230, 184, 92, 0.38);
+            border-radius: 30px;
+            font-size: 0.84rem;
+            color: #ffebf0;
+            text-align: center;
+            max-width: 94%;
+            z-index: 25;
+        }
+
+        .bouquet-viewport {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        #bouquet-svg {
+            width: 100%;
+            height: 100%;
+            max-height: 77vh;
+            overflow: visible;
+            touch-action: none;
+            transform: translateZ(0);
+        }
+
+        .rose-3d-item {
+            cursor: grab;
+            touch-action: none;
+            will-change: transform;
+        }
+
+        .rose-3d-item:active {
+            cursor: grabbing;
+        }
+
+        .petal-3d-unit {
+            cursor: pointer;
+            touch-action: none;
+        }
+
+        #embedded-card-group {
+            cursor: pointer;
+        }
+
+        .footer-hints {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 25;
+        }
+
+        .hint-pill {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #1f0511;
+            border: 1px solid rgba(230, 184, 92, 0.28);
+            color: #ffdce6;
+        }
+
+        #card-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 95;
+            background: rgba(9, 1, 5, 0.88);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.32s ease;
+        }
+
+        #card-modal-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .card-3d-wrapper {
+            width: 100%;
+            max-width: 375px;
+            height: 465px;
+            perspective: 1200px;
+        }
+
+        .card-3d-flipper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1);
+            cursor: pointer;
+        }
+
+        .card-3d-flipper.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-side {
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 24px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+        }
+
+        .card-side-frame {
+            position: absolute;
+            inset: 12px;
+            border: 1.5px dashed rgba(168, 118, 28, 0.65);
+            border-radius: 20px;
+            pointer-events: none;
+        }
+
+        .card-side-front {
+            background: linear-gradient(145deg, #fffdf9 0%, #f5e1c0 100%);
+            border: 3px solid var(--gold-dark);
+            color: #590d22;
+            text-align: center;
+        }
+
+        .card-side-back {
+            background: linear-gradient(155deg, #fffdf9 0%, #faebd7 100%);
+            border: 3px solid var(--gold-dark);
+            color: #2b0510;
+            transform: rotateY(180deg);
+            justify-content: space-between;
+        }
+
+        .card-romantic-body {
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
+            line-height: 1.88;
+            text-align: center;
+            color: #2b0510;
+            font-weight: 700;
+            padding: 6px 4px;
+        }
+
+        .modal-btn-row {
+            margin-top: 18px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-action-btn {
+            padding: 10px 22px;
+            border-radius: 30px;
+            border: 1.5px solid var(--gold);
+            background: #220512;
+            color: var(--gold-light);
+            font-family: 'Cairo', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .modal-action-btn.gold {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #2b0510;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bokeh-layer"></div>
+
+    <!-- LOGIN SCREEN -->
+    <section id="login-screen">
+        <div class="login-card">
+            <div class="login-icon-ring"><span style="font-size: 40px;">🌹</span></div>
+            <h1 class="login-title">بوكيه ميسا الملكي</h1>
+            <p class="login-desc">بوكيه ورد مخملي ثلاثي الأبعاد صُمم بكل حب وتفاصيل خاصة.. سجلي الدخول بحساب جوجل لفتح
+                المفاجأة</p>
+            <button class="google-login-btn" id="trigger-google-btn">
+                <svg width="22" height="22" viewBox="0 0 48 48">
+                    <path fill="#EA4335"
+                        d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                    <path fill="#4285F4"
+                        d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                    <path fill="#FBBC05"
+                        d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                    <path fill="#34A853"
+                        d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                </svg>
+                <span>تسجيل الدخول باستخدام Google</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- GOOGLE MODAL -->
+    <div id="google-modal">
+        <div class="google-box">
+            <div class="google-box-head">
+                <h3>اختاري حساب جوجل للمتابعة</h3>
+                <p>إلى بوكيه ميسا الملكي 3D</p>
+            </div>
+            <div class="google-account-row" id="select-maysa-account">
+                <div class="google-avatar">م</div>
+                <div>
+                    <h4 style="font-size: 0.98rem; color:#1f1f1f;">ميسا ❤️</h4>
+                    <span style="font-size: 0.8rem; color:#666;">maysa.royal.rose@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN SCENE -->
+    <main id="main-scene">
+        <header class="hud-header">
+            <div class="hud-user">
+                <span class="hud-user-badge">م</span>
+                <span>بوكيه ميسا الملكي 🌹</span>
+            </div>
+            <div class="hud-actions">
+                <span class="hud-counter">البتلات المقطوفة: <strong id="plucked-num">0</strong></span>
+                <button class="hud-btn" id="replay-build-btn">إعادة البناء ✨</button>
+            </div>
+        </header>
+
+        <div id="status-banner">✨ جاري بناء البوكيه وتفتيح الورد أمام عينيكِ...</div>
+
+        <div class="bouquet-viewport">
+            <svg id="bouquet-svg" viewBox="0 0 560 700" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="velvetCrimsonOuter" cx="32%" cy="26%" r="74%">
+                        <stop offset="0%" stop-color="#ff6b8b" />
+                        <stop offset="28%" stop-color="#e60938" />
+                        <stop offset="68%" stop-color="#8a021f" />
+                        <stop offset="100%" stop-color="#38000b" />
+                    </radialGradient>
+                    <radialGradient id="velvetCrimsonMid" cx="38%" cy="24%" r="72%">
+                        <stop offset="0%" stop-color="#ff8fa3" />
+                        <stop offset="35%" stop-color="#d90429" />
+                        <stop offset="80%" stop-color="#6e0219" />
+                        <stop offset="100%" stop-color="#2b0008" />
+                    </radialGradient>
+                    <radialGradient id="velvetCrimsonCore" cx="45%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#ffb3c1" />
+                        <stop offset="45%" stop-color="#b8062c" />
+                        <stop offset="100%" stop-color="#240007" />
+                    </radialGradient>
+                    <radialGradient id="velvetPinkOuter" cx="32%" cy="26%" r="74%">
+                        <stop offset="0%" stop-color="#ffe5ec" />
+                        <stop offset="30%" stop-color="#ff6b8b" />
+                        <stop offset="72%" stop-color="#b5123b" />
+                        <stop offset="100%" stop-color="#4a0214" />
+                    </radialGradient>
+                    <radialGradient id="velvetPinkMid" cx="38%" cy="24%" r="72%">
+                        <stop offset="0%" stop-color="#fff0f5" />
+                        <stop offset="38%" stop-color="#ff4d6d" />
+                        <stop offset="82%" stop-color="#8f082b" />
+                        <stop offset="100%" stop-color="#38000e" />
+                    </radialGradient>
+                    <radialGradient id="velvetPinkCore" cx="45%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="48%" stop-color="#e0315a" />
+                        <stop offset="100%" stop-color="#420112" />
+                    </radialGradient>
+                    <linearGradient id="wrapBurgundyBack" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#420921" />
+                        <stop offset="50%" stop-color="#240412" />
+                        <stop offset="100%" stop-color="#110108" />
+                    </linearGradient>
+                    <linearGradient id="wrapBurgundyFront" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#630f31" />
+                        <stop offset="48%" stop-color="#38061b" />
+                        <stop offset="100%" stop-color="#18020b" />
+                    </linearGradient>
+                    <linearGradient id="wrapSilkCream" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fffdf7" />
+                        <stop offset="65%" stop-color="#f5e1c3" />
+                        <stop offset="100%" stop-color="#d6b485" />
+                    </linearGradient>
+                    <linearGradient id="goldFoil" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff6bd" />
+                        <stop offset="35%" stop-color="#e6b85c" />
+                        <stop offset="70%" stop-color="#9e6d15" />
+                        <stop offset="100%" stop-color="#fff3b0" />
+                    </linearGradient>
+                    <linearGradient id="stem3D" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#143625" />
+                        <stop offset="45%" stop-color="#40916c" />
+                        <stop offset="100%" stop-color="#091c13" />
+                    </linearGradient>
+                    <linearGradient id="leaf3D" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#52b788" />
+                        <stop offset="55%" stop-color="#2d6a4f" />
+                        <stop offset="100%" stop-color="#123022" />
+                    </linearGradient>
+                    <linearGradient id="satinBowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff0f5" />
+                        <stop offset="45%" stop-color="#ff8fa3" />
+                        <stop offset="100%" stop-color="#c9184a" />
+                    </linearGradient>
+                </defs>
+
+                <g id="wrap-back-group">
+                    <path d="M 65 250 Q 130 80 280 105 Q 430 80 495 250 L 355 560 L 205 560 Z"
+                        fill="url(#wrapBurgundyBack)" stroke="url(#goldFoil)" stroke-width="2.5" />
+                    <path d="M 95 210 Q 175 110 280 140 L 245 520 L 185 520 Z" fill="url(#wrapSilkCream)" opacity="0.95"
+                        stroke="url(#goldFoil)" stroke-width="1.2" />
+                    <path d="M 465 210 Q 385 110 280 140 L 315 520 L 375 520 Z" fill="url(#wrapSilkCream)"
+                        opacity="0.92" stroke="url(#goldFoil)" stroke-width="1.2" />
+                </g>
+
+                <g id="foliage-layer"></g>
+                <g id="roses-back-layer"></g>
+
+                <g id="center-card-layer">
+                    <g id="embedded-card-group" transform="translate(280, 278)">
+                        <line x1="0" y1="45" x2="0" y2="180" stroke="url(#goldFoil)" stroke-width="4" />
+                        <rect x="-66" y="-48" width="132" height="96" rx="14" fill="rgba(0,0,0,0.55)"
+                            transform="translate(0, 7)" />
+                        <rect x="-66" y="-48" width="132" height="96" rx="14" fill="url(#wrapSilkCream)"
+                            stroke="url(#goldFoil)" stroke-width="3" />
+                        <rect x="-58" y="-40" width="116" height="80" rx="10" fill="none" stroke="#a8761c"
+                            stroke-width="1.2" stroke-dasharray="5,3" />
+                        <text x="0" y="-17" text-anchor="middle" font-size="15">👑</text>
+                        <text x="0" y="13" text-anchor="middle" font-family="'Aref Ruqaa', serif" font-size="32"
+                            font-weight="bold" fill="#800f2f">ميسا</text>
+                        <text x="0" y="32" text-anchor="middle" font-family="'Cairo', sans-serif" font-size="10"
+                            font-weight="800" fill="#8c5d0b">اضغطي لفتح الرسالة 💌</text>
+                    </g>
+                </g>
+
+                <g id="roses-front-layer"></g>
+
+                <g id="wrap-front-group" pointer-events="none">
+                    <ellipse cx="280" cy="645" rx="85" ry="14" fill="rgba(0,0,0,0.55)" />
+                    <path d="M 82 300 Q 185 350 292 455 L 330 625 L 200 625 Z" fill="url(#wrapBurgundyFront)"
+                        stroke="url(#goldFoil)" stroke-width="2.2" />
+                    <path d="M 478 300 Q 375 350 268 455 L 230 625 L 360 625 Z" fill="url(#wrapBurgundyFront)"
+                        stroke="url(#goldFoil)" stroke-width="2.2" />
+                    <path d="M 135 345 Q 280 415 425 345 L 350 475 L 210 475 Z" fill="url(#wrapSilkCream)"
+                        opacity="0.88" />
+                    <path d="M 162 390 Q 280 445 398 390 L 332 635 Q 280 652 228 635 Z" fill="url(#wrapBurgundyBack)"
+                        stroke="url(#goldFoil)" stroke-width="2.5" />
+                    <path d="M 206 505 Q 280 522 354 505 L 348 525 Q 280 542 212 525 Z" fill="url(#goldFoil)" />
+
+                    <g transform="translate(280, 518)">
+                        <path d="M -14 10 Q -42 65 -58 115 L -26 108 Q -18 60 -4 14 Z" fill="#a80629"
+                            stroke="url(#goldFoil)" stroke-width="1.2" />
+                        <path d="M 14 10 Q 42 65 58 115 L 26 108 Q 18 60 4 14 Z" fill="#a80629" stroke="url(#goldFoil)"
+                            stroke-width="1.2" />
+                        <path d="M 0 0 C -42 -34 -88 -20 -82 12 C -76 38 -32 28 0 8 Z" fill="url(#velvetCrimsonMid)"
+                            stroke="url(#goldFoil)" stroke-width="1.8" />
+                        <path d="M 0 0 C 42 -34 88 -20 82 12 C 76 38 32 28 0 8 Z" fill="url(#velvetCrimsonMid)"
+                            stroke="url(#goldFoil)" stroke-width="1.8" />
+                        <rect x="-22" y="-13" width="44" height="26" rx="10" fill="url(#goldFoil)" stroke="#590d22"
+                            stroke-width="1.8" />
+                        <text x="0" y="5" text-anchor="middle" font-family="'Aref Ruqaa', serif" font-size="15"
+                            font-weight="bold" fill="#4a0214">ميسا</text>
+                    </g>
+                </g>
+
+                <g id="active-interaction-layer"></g>
+            </svg>
+        </div>
+
+        <div class="footer-hints">
+            <span class="hint-pill">🌹 اسحبي أي وردة من ساقها لإمساكها</span>
+            <span class="hint-pill">🌸 اسحبي أوراق الوردة لقطفها</span>
+            <span class="hint-pill">💌 اضغطي على كارت «ميسا» في قلب البوكيه</span>
+        </div>
+    </main>
+
+    <!-- MODAL -->
+    <div id="card-modal-backdrop">
+        <div class="card-3d-wrapper">
+            <div class="card-3d-flipper" id="card-3d-flipper">
+                <div class="card-side card-side-front">
+                    <div class="card-side-frame"></div>
+                    <div style="font-size: 2.8rem; margin-bottom: 6px;">👑🌹</div>
+                    <p style="font-size: 0.95rem; font-weight: 700; color: #7a0016;">إهداء خاص إلى أميرتي</p>
+                    <h2 style="font-family:'Aref Ruqaa',serif; font-size:3.8rem; color:#800f2f; margin:8px 0 12px;">ميسا
+                    </h2>
+                    <p style="font-size: 0.9rem; color: #590d22;">أجمل وردة في البوكيه وفي حياتي كلها</p>
+                    <div
+                        style="margin-top: 14px; padding: 8px 18px; border-radius: 30px; background: rgba(230, 184, 92, 0.32); color: #7d530e; font-weight: 800; font-size: 0.9rem;">
+                        اضغطي لقلب الكارت وقراءة الرسالة ↺</div>
+                </div>
+
+                <div class="card-side card-side-back">
+                    <div class="card-side-frame"></div>
+                    <div
+                        style="font-family: 'Aref Ruqaa', serif; font-size: 1.9rem; color: #9e0b32; border-bottom: 1.5px solid rgba(168, 118, 28, 0.4); padding-bottom: 8px; width: 100%; text-align: center;">
+                        حبيبتي ميسا ❤️</div>
+                    <p class="card-romantic-body">
+                        «لو زعلتي، بتبان الدنيا كلها باهتة ومالهاش طعم.. يمكن بنختلف ونتخانق، بس الثابت الوحيد اللي
+                        ميتغيرش إنك أجمل حاجة دخلت حياتي. ميهونش عليا أشوف زعلك ولا لحظة، وحقك على قلبي قبل عيني.. كل
+                        حاجة بتعدي وبتتنسي، بس حبي ليكي بيفضل كل يوم أكبر وأعمق من اليوم اللي قبله.»
+                    </p>
+                    <div style="font-size: 0.92rem; font-weight: 800; color: #9e0b32;">بحبك دايماً وأبداً 🌹✨</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-btn-row">
+            <button class="modal-action-btn gold" id="btn-flip-card">اقلبي الكارت ↺</button>
+            <button class="modal-action-btn" id="btn-close-card">العودة للبوكيه ✕</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Audio Sound Synthesizer (Web Audio API for Tinn & Click sounds) ---
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playPluckSound() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(220, audioCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.15);
+            } catch (e) { }
+        }
+
+        function playClickSound() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(320, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime + 0.05);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch (e) { }
+        }
+
+        gsap.ticker.lagSmoothing(1000, 16);
+        gsap.defaults({ force3D: true });
+
+        const loginScreen = document.getElementById('login-screen');
+        const triggerGoogleBtn = document.getElementById('trigger-google-btn');
+        const googleModal = document.getElementById('google-modal');
+        const selectMaysaAccount = document.getElementById('select-maysa-account');
+        const mainScene = document.getElementById('main-scene');
+        const statusBanner = document.getElementById('status-banner');
+        const pluckedNumEl = document.getElementById('plucked-num');
+        const replayBuildBtn = document.getElementById('replay-build-btn');
+
+        const svg = document.getElementById('bouquet-svg');
+        const wrapBackGroup = document.getElementById('wrap-back-group');
+        const wrapFrontGroup = document.getElementById('wrap-front-group');
+        const foliageLayer = document.getElementById('foliage-layer');
+        const rosesBackLayer = document.getElementById('roses-back-layer');
+        const rosesFrontLayer = document.getElementById('roses-front-layer');
+        const embeddedCardGroup = document.getElementById('embedded-card-group');
+        const activeLayer = document.getElementById('active-interaction-layer');
+
+        const cardModalBackdrop = document.getElementById('card-modal-backdrop');
+        const card3dFlipper = document.getElementById('card-3d-flipper');
+        const btnFlipCard = document.getElementById('btn-flip-card');
+        const btnCloseCard = document.getElementById('btn-close-card');
+
+        let pluckedTotal = 0;
+        const romanticNotes = [
+            "كل ورقة في الورد بتشهد على حبي ليكي يا ميسا ❤️",
+            "ميهونش عليا زعلك ولا لحظة يا أجمل ميسا 🌹",
+            "إنك أجمل حاجة دخلت حياتي ✨",
+            "حقك على قلبي قبل عيني يا أميرتي 👑",
+            "حبي ليكي بيفضل كل يوم أكبر وأعمق 💖"
+        ];
+
+        const BOUQUET_ROSES = [
+            { id: 1, x: 280, y: 145, rot: 0, scale: 1.02, palette: 'crimson', depth: 'back' },
+            { id: 2, x: 195, y: 162, rot: -16, scale: 0.96, palette: 'pink', depth: 'back' },
+            { id: 3, x: 365, y: 162, rot: 16, scale: 0.96, palette: 'pink', depth: 'back' },
+            { id: 4, x: 125, y: 222, rot: -28, scale: 0.90, palette: 'crimson', depth: 'back' },
+            { id: 5, x: 435, y: 222, rot: 28, scale: 0.90, palette: 'crimson', depth: 'back' },
+            { id: 6, x: 195, y: 245, rot: -12, scale: 0.95, palette: 'crimson', depth: 'back' },
+            { id: 7, x: 365, y: 245, rot: 12, scale: 0.95, palette: 'crimson', depth: 'back' },
+            { id: 8, x: 155, y: 318, rot: -18, scale: 0.96, palette: 'pink', depth: 'front' },
+            { id: 9, x: 405, y: 318, rot: 18, scale: 0.96, palette: 'pink', depth: 'front' },
+            { id: 10, x: 222, y: 358, rot: -8, scale: 1.00, palette: 'crimson', depth: 'front' },
+            { id: 11, x: 338, y: 358, rot: 8, scale: 1.00, palette: 'crimson', depth: 'front' }
+        ];
+
+        triggerGoogleBtn.addEventListener('click', () => {
+            initAudio();
+            playClickSound();
+            googleModal.style.display = 'flex';
+        });
+
+        selectMaysaAccount.addEventListener('click', () => {
+            playClickSound();
+            googleModal.style.display = 'none';
+            loginScreen.style.opacity = '0';
+            loginScreen.style.visibility = 'hidden';
+            mainScene.classList.add('visible');
+            assembleBouquetSequential();
+        });
+
+        function svgEl(tag, attrs = {}) {
+            const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
+            for (const [k, v] of Object.entries(attrs)) {
+                node.setAttribute(k, v);
+            }
+            return node;
+        }
+
+        function screenToSVG(clientX, clientY) {
+            const pt = svg.createSVGPoint();
+            pt.x = clientX;
+            pt.y = clientY;
+            return pt.matrixTransform(svg.getScreenCTM().inverse());
+        }
+
+        function assembleBouquetSequential() {
+            gsap.killTweensOf('*');
+            foliageLayer.innerHTML = '';
+            rosesBackLayer.innerHTML = '';
+            rosesFrontLayer.innerHTML = '';
+            activeLayer.innerHTML = '';
+            pluckedTotal = 0;
+            pluckedNumEl.textContent = '0';
+
+            const sprigPositions = [
+                { x: 145, y: 128 }, { x: 235, y: 105 }, { x: 325, y: 105 }, { x: 415, y: 128 },
+                { x: 90, y: 195 }, { x: 470, y: 195 }, { x: 115, y: 280 }, { x: 445, y: 280 }
+            ];
+
+            sprigPositions.forEach((sp) => {
+                const g = svgEl('g', { class: 'foliage-cluster' });
+                const branch = svgEl('path', {
+                    d: `M 280 420 Q ${(280 + sp.x) / 2} ${sp.y + 85} ${sp.x} ${sp.y}`,
+                    stroke: '#2d6a4f', 'stroke-width': '2', fill: 'none'
+                });
+                g.appendChild(branch);
+                foliageLayer.appendChild(g);
+            });
+
+            const allRoseNodes = [];
+            BOUQUET_ROSES.forEach((cfg) => {
+                const roseNode = createLuxury3DRose(cfg);
+                allRoseNodes.push(roseNode);
+                if (cfg.depth === 'back') {
+                    rosesBackLayer.appendChild(roseNode);
+                } else {
+                    rosesFrontLayer.appendChild(roseNode);
+                }
+            });
+
+            statusBanner.textContent = '✨ جاري لف ورق البوكيه الملكي وتجهيز الورد...';
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    statusBanner.textContent = '🌹 اسحبي أي وردة لإمساكها، أو اقطفي أوراقها، أو اضغطي على كارت «ميسا»!';
+                }
+            });
+
+            gsap.set([wrapBackGroup, wrapFrontGroup], { opacity: 0, scale: 0.88, svgOrigin: '280 540' });
+            gsap.set('.foliage-cluster', { opacity: 0, scale: 0.3, svgOrigin: '280 420' });
+            gsap.set(allRoseNodes, { opacity: 0, scale: 0.2 });
+            gsap.set(embeddedCardGroup, { opacity: 0, y: 315, scale: 0.6 });
+
+            tl.to([wrapBackGroup, wrapFrontGroup], { opacity: 1, scale: 1, duration: 0.48, ease: 'power2.out' });
+            tl.to('.foliage-cluster', { opacity: 1, scale: 1, duration: 0.38, stagger: 0.025, ease: 'back.out(1.4)' }, '+=0.02');
+            tl.to(allRoseNodes, { opacity: 1, scale: (i) => BOUQUET_ROSES[i].scale, duration: 0.46, stagger: 0.045, ease: 'back.out(1.55)' }, '-=0.1');
+            tl.to(embeddedCardGroup, { opacity: 1, y: 278, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, '-=0.15');
+        }
+
+        function createLuxury3DRose(cfg) {
+            const isCrimson = cfg.palette === 'crimson';
+            const outerGrad = isCrimson ? 'url(#velvetCrimsonOuter)' : 'url(#velvetPinkOuter)';
+            const midGrad = isCrimson ? 'url(#velvetCrimsonMid)' : 'url(#velvetPinkMid)';
+            const coreGrad = isCrimson ? 'url(#velvetCrimsonCore)' : 'url(#velvetPinkCore)';
+
+            const roseGroup = svgEl('g', {
+                class: 'rose-3d-item',
+                transform: `translate(${cfg.x}, ${cfg.y}) rotate(${cfg.rot}) scale(${cfg.scale})`
+            });
+
+            roseGroup._cfg = { ...cfg };
+            roseGroup._pos = { x: cfg.x, y: cfg.y, rot: cfg.rot, scale: cfg.scale };
+
+            const stemGroup = svgEl('g', { class: 'rose-stem-wrap' });
+            const stemLine = svgEl('path', {
+                d: 'M 0 18 Q -5 105 0 195',
+                stroke: 'url(#stem3D)', 'stroke-width': '7.5', 'stroke-linecap': 'round', fill: 'none'
+            });
+            stemGroup.appendChild(stemLine);
+
+            const bowGroup = svgEl('g', { class: 'rose-maysa-bow', transform: 'translate(0, 114)' });
+            const knotBadge = svgEl('rect', { x: '-18', y: '-8', width: '36', height: '16', rx: '8', fill: '#fffdf7', stroke: 'url(#goldFoil)', 'stroke-width': '1.5' });
+            const knotText = svgEl('text', { x: '0', y: '4', 'text-anchor': 'middle', 'font-family': "'Cairo', sans-serif", 'font-size': '10', 'font-weight': '800', fill: '#800f2f' });
+            knotText.textContent = 'ميسا';
+            bowGroup.append(knotBadge, knotText);
+            stemGroup.appendChild(bowGroup);
+            roseGroup.appendChild(stemGroup);
+
+            const headGroup = svgEl('g', { class: 'rose-head-wrap' });
+            for (let i = 0; i < 6; i++) headGroup.appendChild(create3DPetal(i * 60, 1.04, outerGrad));
+            for (let i = 0; i < 5; i++) headGroup.appendChild(create3DPetal(i * 72 + 32, 0.78, midGrad));
+            for (let i = 0; i < 3; i++) headGroup.appendChild(create3DPetal(i * 120 + 18, 0.54, coreGrad));
+
+            const spiralCore = svgEl('g', { class: 'rose-spiral-core' });
+            const coreCup = svgEl('circle', { cx: '0', cy: '0', r: '14', fill: coreGrad, stroke: 'rgba(255,220,230,0.6)', 'stroke-width': '1.2' });
+            spiralCore.appendChild(coreCup);
+            headGroup.appendChild(spiralCore);
+
+            roseGroup.appendChild(headGroup);
+            bindRoseDrag(roseGroup, [stemGroup, spiralCore]);
+            return roseGroup;
+        }
+
+        function create3DPetal(angle, scale, fillUrl) {
+            const pGroup = svgEl('g', { class: 'petal-3d-unit', transform: `rotate(${angle}) scale(${scale})` });
+            pGroup._baseAngle = angle;
+            pGroup._baseScale = scale;
+
+            const petalShape = svgEl('path', {
+                d: 'M 0 0 C -26 -14 -40 -44 -20 -60 C -10 -66 -3 -63 0 -60 C 3 -63 10 -66 20 -60 C 40 -44 26 -14 0 0 Z',
+                fill: fillUrl, stroke: 'rgba(255, 225, 235, 0.48)', 'stroke-width': '1.15'
+            });
+            pGroup.appendChild(petalShape);
+
+            let startPos = null;
+            let pulling = false;
+
+            pGroup.addEventListener('pointerdown', (e) => {
+                e.stopPropagation();
+                pGroup.setPointerCapture(e.pointerId);
+                startPos = screenToSVG(e.clientX, e.clientY);
+                pulling = true;
+            });
+
+            pGroup.addEventListener('pointermove', (e) => {
+                if (!pulling || !startPos) return;
+                const cur = screenToSVG(e.clientX, e.clientY);
+                const dx = cur.x - startPos.x;
+                const dy = cur.y - startPos.y;
+                if (Math.hypot(dx, dy) < 20) {
+                    pGroup.setAttribute('transform', `translate(${dx * 0.45}, ${dy * 0.45}) rotate(${pGroup._baseAngle + dx * 0.4}) scale(${pGroup._baseScale * 1.07})`);
+                } else {
+                    pulling = false;
+                    playPluckSound();
+                    detachAndFlutterPetal(pGroup, cur.x, cur.y);
+                }
+            });
+
+            pGroup.addEventListener('pointerup', (e) => {
+                if (!pulling) return;
+                pulling = false;
+                const cur = screenToSVG(e.clientX, e.clientY);
+                if (Math.hypot(cur.x - startPos.x, cur.y - startPos.y) < 10) {
+                    playPluckSound();
+                    detachAndFlutterPetal(pGroup, cur.x, cur.y);
+                } else {
+                    pGroup.setAttribute('transform', `rotate(${pGroup._baseAngle}) scale(${pGroup._baseScale})`);
+                }
+            });
+
+            return pGroup;
+        }
+
+        function detachAndFlutterPetal(petalNode, startX, startY) {
+            if (petalNode._isPlucked) return;
+            petalNode._isPlucked = true;
+
+            pluckedTotal++;
+            pluckedNumEl.textContent = pluckedTotal;
+            statusBanner.textContent = romanticNotes[pluckedTotal % romanticNotes.length];
+
+            activeLayer.appendChild(petalNode);
+            const swayX = (Math.random() - 0.5) * 160;
+            const spinDeg = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 140);
+
+            gsap.fromTo(petalNode,
+                { svgOrigin: '0 0', x: startX, y: startY, rotation: petalNode._baseAngle, scale: petalNode._baseScale },
+                { x: startX + swayX, y: 710, rotation: petalNode._baseAngle + spinDeg, scale: petalNode._baseScale * 0.68, opacity: 0, duration: 2.3, ease: 'power1.in', onComplete: () => petalNode.remove() }
+            );
+        }
+
+        // Fixed Rose Dragging sensitivity so it never slips away
+        function bindRoseDrag(roseGroup, handles) {
+            let isDragging = false;
+            let grabOffset = { x: 0, y: 0 };
+
+            handles.forEach((h) => {
+                h.addEventListener('pointerdown', (e) => {
+                    e.stopPropagation();
+                    isDragging = true;
+                    h.setPointerCapture(e.pointerId);
+                    activeLayer.appendChild(roseGroup);
+
+                    const pt = screenToSVG(e.clientX, e.clientY);
+                    grabOffset.x = roseGroup._pos.x - pt.x;
+                    grabOffset.y = roseGroup._pos.y - pt.y;
+
+                    roseGroup._pos.scale = roseGroup._cfg.scale * 1.12;
+                    applyRoseTransform(roseGroup);
+                    statusBanner.textContent = '🌹 أنتِ تمسكين وردة «ميسا».. اسحبي أي ورقة منها لقطفها!';
+                });
+
+                h.addEventListener('pointermove', (e) => {
+                    if (!isDragging) return;
+                    const pt = screenToSVG(e.clientX, e.clientY);
+                    roseGroup._pos.x = pt.x + grabOffset.x;
+                    roseGroup._pos.y = pt.y + grabOffset.y;
+                    roseGroup._pos.rot = (roseGroup._pos.x - 280) * 0.11;
+                    applyRoseTransform(roseGroup);
+                });
+
+                const stopDrag = (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    try { h.releasePointerCapture(e.pointerId); } catch (err) { }
+                    roseGroup._pos.scale = roseGroup._cfg.scale;
+                    applyRoseTransform(roseGroup);
+                };
+
+                h.addEventListener('pointerup', stopDrag);
+                h.addEventListener('pointercancel', stopDrag);
+            });
+        }
+
+        function applyRoseTransform(roseGroup) {
+            const { x, y, rot, scale } = roseGroup._pos;
+            roseGroup.setAttribute('transform', `translate(${x}, ${y}) rotate(${rot}) scale(${scale})`);
+        }
+
+        embeddedCardGroup.addEventListener('click', () => {
+            playClickSound();
+            card3dFlipper.classList.remove('is-flipped');
+            cardModalBackdrop.classList.add('open');
+            setTimeout(() => { card3dFlipper.classList.add('is-flipped'); }, 600);
+        });
+
+        card3dFlipper.addEventListener('click', () => {
+            playClickSound();
+            card3dFlipper.classList.toggle('is-flipped');
+        });
+
+        btnFlipCard.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playClickSound();
+            card3dFlipper.classList.toggle('is-flipped');
+        });
+
+        btnCloseCard.addEventListener('click', () => {
+            playClickSound();
+            cardModalBackdrop.classList.remove('open');
+        });
+
+        replayBuildBtn.addEventListener('click', () => {
+            playClickSound();
+            assembleBouquetSequential();
+        });
+    </script>
+</body>
+
+</html>
